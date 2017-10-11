@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <bean id="freebdao" class="spring.model.free_board.Free_boardDAO" p:mybatis-ref="sqlSession" />
+   <bean id="freecdao" class="spring.model.free_comment.Free_commentDAO" p:mybatis-ref="sqlSession" />
+   <bean id="infodao" class="spring.model.infoAcademy.InfoAcademyDAO" p:mybatis-ref="sqlSession" />
+   <bean id="memberdao" class="spring.model.member.MemberDAO" p:mybatis-ref="sqlSession" />
+   <bean id="noticedao" class="spring.model.notice_board.Notice_boardDAO" p:mybatis-ref="sqlSession" />
+   <bean id="qnadao" class="spring.model.qna.QnaDAO" p:mybatis-ref="sqlSession" />
+   <bean id="tabledao" class="spring.model.table.TableDAO" p:mybatis-ref="sqlSession" />
+
+
+   <!-- 데이터베이스 접속 설정 --> 
+	<bean id="dataSource" destroy-method="close"
+		class="org.apache.commons.dbcp.BasicDataSource" p:driverClassName="oracle.jdbc.driver.OracleDriver"
+		p:url="jdbc:oracle:thin:@localhost:1521:XE" p:username="wlssts"
+		p:password="1234" />
+      
+   <!-- MyBatis SQL 실행 클래스 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 아래부분은 매핑할 xml파일이 있는 패키지경로를 설정한다. -->
+		<property name="typeAliasesPackage" value="spring.model" />
+		<property name="mapperLocations" value="classpath:mybatis/*.xml" />
+	</bean>
+
+   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+</beans>
