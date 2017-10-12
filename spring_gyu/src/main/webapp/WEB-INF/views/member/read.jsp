@@ -1,5 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/ssi/ssi.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="/ssi/member_ssi.jsp"%>
 <c:if test="${empty nowPage || nowPage == 'null' }">
 	<c:set var="nowPage" value="1" />
 </c:if>
@@ -24,22 +25,12 @@
 		url += "?col=${col}";
 		url += "&word=${word}";
 		url += "&nowPage=${nowPage}";
-		url += "&oldFile=${dto.fname}";
 		url += "&id=${dto.id}";
 
 		location.href = url;
 	}
 	function update() {
 		var url = "./update";
-		url += "?col=${col}";
-		url += "&word=${word}";
-		url += "&nowPage=${nowPage}";
-		url += "&id=${dto.id}";
-
-		location.href = url;
-	}
-	function updatePw() {
-		var url = "./updatePwForm";
 		url += "?col=${col}";
 		url += "&word=${word}";
 		url += "&nowPage=${nowPage}";
@@ -78,10 +69,9 @@
 		</TR>
 	</TABLE>
 
-	<DIV class='bottom'>
+	<%-- <DIV class='bottom'>
 		<c:if
 			test="${not empty sessionScope.id && sessionScope.grade != 'A' }">
-			<input type='button' value='비번변경' onclick="updatePw()">
 			<input type='button' value='정보수정' onclick="update()">
 		</c:if>
 		<c:if
@@ -89,7 +79,7 @@
 			<input type='button' value='회원목록' onclick="mlist()">
 			<input type='button' value='회원삭제' onclick="mdelete()">
 		</c:if>
-	</DIV>
+	</DIV> --%>
 
 
 </body>

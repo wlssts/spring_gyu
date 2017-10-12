@@ -10,10 +10,8 @@ public interface IMemberDAO extends DAOinter {
 	public String getGrade(String id) throws Exception;
 	
 	public boolean loginCheck(Map map) throws Exception;
-	
-	public boolean updatePw(Map map) throws Exception;
-	
+		
 	public boolean duplicateId(String id) throws Exception;
 	
-	
+	public boolean idCheck(String id) throws Exception;
 }

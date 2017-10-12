@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.model.member.MemberDAO;
 import spring.model.member.MemberDTO;
+import spring.sts.utility.Util_SHA256;
+import spring.sts.utility.Util_Security;
 import spring.sts.utility.Utility;
 
 @Controller
@@ -19,7 +21,71 @@ public class MemberController {
 
 	@Autowired
 	private MemberDAO dao;
-
+	
+	@RequestMapping(value ="/member/delete", method =RequestMethod.POST)
+	public String delete(String id, String col, String word, String nowPage, Model model) throws Exception {
+		Map map2 = new HashMap();
+	      //마지막페이지 처리를 위한
+	      map2.put("col", col);
+	      map2.put("word", word);
+	      int total = dao.total(map2);   //댓글전체레코드값을 가져와서
+	      int totalPage = (int)(Math.ceil((double)total/5)); //올림 전체페이지
+	      
+	      
+	      int nowPage2 = Integer.parseInt(nowPage);
+	      
+	      boolean flag = dao.delete(id);
+	      
+	      if(flag) {
+	         if(nowPage2!=1 && nowPage2 == totalPage && total % 5 == 1) { 
+	         //현페이지가 마지막페이지고 레코드가 하나만 남은 경우
+	         nowPage2 = nowPage2-1;
+	         }
+	         model.addAttribute("flag", flag);
+	         model.addAttribute("col", col);
+	         model.addAttribute("word", word);
+	         model.addAttribute("nowPage", nowPage2);
+	         return "member/deleteProc.tiles";
+	      }else {
+	         return "error/error";
+	      }
+	}
+	
+	@RequestMapping(value ="/member/delete", method =RequestMethod.GET)
+	public String delete() {
+		
+		return "member/deleteForm.tiles";
+	}
+	
+	@RequestMapping(value ="/member/update", method =RequestMethod.POST)
+	public String update(MemberDTO dto, Model model, String col, String word, String nowPage) throws Exception {
+		boolean flag = dao.update(dto);
+		if(flag) {
+			model.addAttribute("col",col);
+			model.addAttribute("word",word);
+			model.addAttribute("nowPage",nowPage);
+			return "redirect:list";			
+		} else {
+			return "error/error";
+		}
+	}
+	
+	@RequestMapping(value ="/member/update", method =RequestMethod.GET)
+	public String update(Model model,String id) throws Exception {
+		
+		model.addAttribute("dto", dao.read(id));
+		return "member/update.tiles";
+	}
+	
+	@RequestMapping(value ="/member/read", method =RequestMethod.GET)
+	public String read(Model model, MemberDTO dto, HttpServletRequest request) throws Exception {
+		
+		dto = dao.read(dto.getId());
+		model.addAttribute("dto", dto);
+		
+		return "member/read.tiles";
+	}
+	
 	@RequestMapping("/member/list")
 	public String list(HttpServletRequest request) throws Exception {
 		String col = Utility.checkNull(request.getParameter("col")); // null인 경우도 허용하는 메소드
@@ -59,7 +125,7 @@ public class MemberController {
 		return "member/list.tiles";
 	}
 	
-	/*@RequestMapping(value = "/member/agreement", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/agreement", method = RequestMethod.GET)
 	public String agreement() {
 
 		return "member/agreement.tiles";
@@ -72,22 +138,21 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member/create", method = RequestMethod.POST)
-	public String create(MemberVO vo) {
+	public String create(MemberDTO dto) throws Exception {
 
-		boolean flag = false;
-		SecurityUtil securityUtil = new SecurityUtil();
-		String rtn1 = securityUtil.encryptSHA256(vo.getPasswd());
-		vo.setPasswd(rtn1);
+		Util_Security Util_Security = new Util_Security();
+		String rtn1 = Util_Security.encryptSHA256(dto.getPasswd());
+		dto.setPasswd(rtn1);
 
 		// 회원가입시 비밀번호를 SHA-256 으로 SALT 이용해 암호화 하기
 		
-		 * String salt = SHA256Util.generateSalt(); String newPassword =
-		 * SHA256Util.getEncrypt(vo.getPasswd(), salt); vo.setPasswd(newPassword);
-		 * vo.setSalt(salt);
+		 String salt = Util_SHA256.generateSalt(); String newPassword =
+		 Util_SHA256.getEncrypt(dto.getPasswd(), salt); dto.setPasswd(newPassword);
+		 dto.setSalt(salt);
 		 
 
-		flag = dao.create(vo);
-		System.out.println("vo:" + vo.getPasswd());
+		boolean flag = dao.create(dto);
+		System.out.println("dto:" + dto.getPasswd());
 
 		if (flag) {
 			return "redirect:login";
@@ -97,48 +162,42 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member/id_proc")
-	public String idCheck(String id, Model model) {
+	public String idCheck(String id, Model model) throws Exception {
 		model.addAttribute("flag", dao.duplicateId(id));
 		return "member/id_proc";
 	}
 
-	@RequestMapping(value = "/member/email_proc")
-	public String emailCheck(String email, Model model) {
-		model.addAttribute("flag", dao.duplicateEmail(email));
-		return "member/email_proc";
-	}
-
-	@RequestMapping(value = "/member/login_proc")
-	public String login_proc(Model model, HttpServletRequest request, MemberVO vo) {
+	/*@RequestMapping(value = "/member/login_proc")
+	public String login_proc(Model model, HttpServletRequest request, Memberdto dto) {
 		String id = request.getParameter("id");
 		String passwd = request.getParameter("passwd");
 
-		SecurityUtil securityUtil = new SecurityUtil();
-		String rtn1 = securityUtil.encryptSHA256(passwd);
-		vo.setPasswd(rtn1);
+		Util_Security Util_Security = new Util_Security();
+		String rtn1 = Util_Security.encryptSHA256(passwd);
+		dto.setPasswd(rtn1);
 
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
-		map.put("passwd", vo.getPasswd());
+		map.put("passwd", dto.getPasswd());
 
 		boolean flag = dao.loginCheck(map);
 		model.addAttribute("flag", flag);
 		return "member/login_proc";
-	}
+	}*/
 
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
-	public String login(HttpServletRequest request, HttpServletResponse response, Model model, MemberVO vo) {
+	public String login(HttpServletRequest request, HttpServletResponse response, Model model, MemberDTO dto) throws Exception {
 		String id = request.getParameter("id");
 		String passwd = request.getParameter("passwd");
 		boolean flag = false;
 
-		SecurityUtil securityUtil = new SecurityUtil();
-		String rtn1 = securityUtil.encryptSHA256(passwd);
-		vo.setPasswd(rtn1);
+		Util_Security Util_Security = new Util_Security();
+		String rtn1 = Util_Security.encryptSHA256(passwd);
+		dto.setPasswd(rtn1);
 
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
-		map.put("passwd", vo.getPasswd());
+		map.put("passwd", dto.getPasswd());
 
 		flag = dao.loginCheck(map);
 		String grade = null;// 회원등급
@@ -209,6 +268,6 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
-	}*/
+	}
 
 }

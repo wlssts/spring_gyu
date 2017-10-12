@@ -23,16 +23,16 @@
 	
 		<!-- 데이터베이스 접속 설정  -->
 		<!-- 개인 계정으로 접속 -->
-<!-- 	<bean id="dataSource" destroy-method="close" -->
-<!-- 		class="org.apache.commons.dbcp.BasicDataSource" p:driverClassName="oracle.jdbc.driver.OracleDriver" -->
-<!-- 		p:url="jdbc:oracle:thin:@localhost:1521:XE" p:username="gyu" -->
-<!-- 		p:password="1234" /> -->
-	
-	<!-- 데이터베이스 접속 설정 --> 
 	<bean id="dataSource" destroy-method="close"
 		class="org.apache.commons.dbcp.BasicDataSource" p:driverClassName="oracle.jdbc.driver.OracleDriver"
-		p:url="jdbc:oracle:thin:@192.168.0.21:1521:XE" p:username="jinagyu"
-		p:password="jinagyu" />
+		p:url="jdbc:oracle:thin:@localhost:1521:XE" p:username="gyu"
+		p:password="1234" />
+	
+	<!-- 데이터베이스 접속 설정 --> 
+<!-- 	<bean id="dataSource" destroy-method="close" -->
+<!-- 		class="org.apache.commons.dbcp.BasicDataSource" p:driverClassName="oracle.jdbc.driver.OracleDriver" -->
+<!-- 		p:url="jdbc:oracle:thin:@192.168.0.21:1521:XE" p:username="jinagyu" -->
+<!-- 		p:password="jinagyu" /> -->
 		
 	<!-- MyBatis SQL 실행 클래스 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

@@ -7,11 +7,20 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 public class MemberDAOTest {
+	
+	private static BeanFactory beans;
+	private static MemberDAO dao;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		Resource resource = new ClassPathResource("META-INF/gyu.xml");
+		beans = new XmlBeanFactory(resource);
 	}
 
 	@AfterClass
@@ -20,6 +29,7 @@ public class MemberDAOTest {
 
 	@Before
 	public void setUp() throws Exception {
+		dao = (MemberDAO)beans.getBean("memberdao");
 	}
 
 	@After
@@ -27,8 +37,15 @@ public class MemberDAOTest {
 	}
 
 	@Test
-	public void testCreate() {
-		fail("Not yet implemented");
+	public void testCreate() throws Exception {
+		MemberDTO dto = new MemberDTO();
+		dto.setId("user2");
+		dto.setPasswd("1234");
+		dto.setName("JUNITTEST");
+		dto.setZipcode("55522");
+		dto.setAddress1("제이동");
+		dto.setAddress2("유닛리");
+		assertTrue(dao.create(dto));
 	}
 
 	@Test
@@ -63,11 +80,6 @@ public class MemberDAOTest {
 
 	@Test
 	public void testLoginCheck() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdatePw() {
 		fail("Not yet implemented");
 	}
 

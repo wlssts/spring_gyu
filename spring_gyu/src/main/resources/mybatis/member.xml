@@ -59,8 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		zipcode = #{zipcode},
 		address1 = #{address2},
 		address2 = #{address1},
-		phone = #{phone},
-		grade = #{grade}
+		phone = #{phone}
 		where id = #{id}
 	</update>
 	<!-- IDcheck -->
@@ -86,6 +85,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from member
 		where id= #{id}            
 		and passwd= #{passwd}       
+	</select>
+	
+	<!-- IdCheck -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(*)
+		from member
+		where id = #{id}
 	</select>
 	
 	<!-- GetGrade -->

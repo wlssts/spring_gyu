@@ -5,7 +5,8 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public class MemberDAO implements IMemberDAO {
 	
 	@Autowired
@@ -30,9 +31,9 @@ public class MemberDAO implements IMemberDAO {
 	}
 
 	@Override
-	public Object read(Object pk) throws Exception {
+	public MemberDTO read(Object id) throws Exception {
 		// TODO Auto-generated method stub
-		return mybatis.selectOne("member.read", (String)pk);
+		return mybatis.selectOne("member.read", (String)id);
 	}
 
 	@Override
@@ -42,9 +43,9 @@ public class MemberDAO implements IMemberDAO {
 	}
 
 	@Override
-	public boolean delete(Object pk) throws Exception {
+	public boolean delete(Object id) throws Exception {
 		// TODO Auto-generated method stub
-		return (Integer)mybatis.selectOne("member.delete", (String)pk)>0;
+		return (Integer)mybatis.selectOne("member.delete", (String)id)>0;
 	}
 
 	@Override
@@ -66,15 +67,15 @@ public class MemberDAO implements IMemberDAO {
 	}
 
 	@Override
-	public boolean updatePw(Map map) throws Exception {
-		// TODO Auto-generated method stub
-		return (Integer)mybatis.selectOne("member.updatePw", map)>0;
-	}
-
-	@Override
 	public boolean duplicateId(String id) throws Exception {
 		// TODO Auto-generated method stub
 		return (Integer)mybatis.selectOne("member.duplicateId", id)>0;
+	}
+
+	@Override
+	public boolean idCheck(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return (Integer)mybatis.selectOne("member.idCheck", id)>0;
 	}
 
 }
