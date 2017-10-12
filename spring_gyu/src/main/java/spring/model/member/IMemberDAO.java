@@ -13,10 +13,6 @@ public interface IMemberDAO extends DAOinter {
 	
 	public boolean updatePw(Map map) throws Exception;
 	
-	public boolean update(MemberDTO dto) throws Exception;
-	
-	public boolean delete(String id) throws Exception;
-	
 	public boolean duplicateId(String id) throws Exception;
 	
 	

@@ -3,81 +3,78 @@ package spring.model.member;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class MemberDAO implements IMemberDAO {
+	
+	@Autowired
+	private SqlSessionTemplate mybatis;
+			
+	public void setMybatis(SqlSessionTemplate mybatis) {
+		
+		this.mybatis = mybatis;
+	}
 
 	@Override
 	public boolean create(Object dto) throws Exception {
 		// TODO Auto-generated method stub
 		
-
-		
-		return false;
+		return (Integer)mybatis.selectOne("member.create", (MemberDTO)dto)>0;
 	}
 
 	@Override
-	public List list(Map map) throws Exception {
+	public List<MemberDTO> list(Map map) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return mybatis.selectList("member.list", map);
 	}
 
 	@Override
 	public Object read(Object pk) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return mybatis.selectOne("member.read", (String)pk);
 	}
 
 	@Override
 	public boolean update(Object dto) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		return (Integer)mybatis.selectOne("member.update", (MemberDTO)dto)>0;
 	}
 
 	@Override
 	public boolean delete(Object pk) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		return (Integer)mybatis.selectOne("member.delete", (String)pk)>0;
 	}
 
 	@Override
 	public int total(Map map) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return mybatis.selectOne("member.total", map);
 	}
 
 	@Override
 	public String getGrade(String id) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return mybatis.selectOne("member.getGrade", id);
 	}
 
 	@Override
 	public boolean loginCheck(Map map) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		return (Integer)mybatis.selectOne("member.loginCheck", map)>0;
 	}
 
 	@Override
 	public boolean updatePw(Map map) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean update(MemberDTO dto) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean delete(String id) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		return (Integer)mybatis.selectOne("member.updatePw", map)>0;
 	}
 
 	@Override
 	public boolean duplicateId(String id) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		return (Integer)mybatis.selectOne("member.duplicateId", id)>0;
 	}
 
 }

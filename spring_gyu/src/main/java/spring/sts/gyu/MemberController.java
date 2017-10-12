@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import spring.model.member.Ssdsadfasdf;
+import spring.model.member.MemberDAO;
 import spring.model.member.MemberDTO;
 import spring.sts.utility.Utility;
 
@@ -18,10 +18,10 @@ import spring.sts.utility.Utility;
 public class MemberController {
 
 	@Autowired
-	private Ssdsadfasdf dao;
+	private MemberDAO dao;
 
 	@RequestMapping("/member/list")
-	public String list(HttpServletRequest request) {
+	public String list(HttpServletRequest request) throws Exception {
 		String col = Utility.checkNull(request.getParameter("col")); // null인 경우도 허용하는 메소드
 		String word = Utility.checkNull(request.getParameter("word")); // 가장 첫페이지인 리스트에서 col, word값을 받기 위해
 		if (col.equals("total")) { // 전체출력은 word값 공란 허용
