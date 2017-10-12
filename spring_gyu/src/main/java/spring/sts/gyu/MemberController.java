@@ -10,23 +10,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import spring.model.member.MemberDAO;
+import spring.model.member.Ssdsadfasdf;
 import spring.model.member.MemberDTO;
 import spring.sts.utility.Utility;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
-
 public class MemberController {
 
 	@Autowired
-	private MemberDAO dao;
+	private Ssdsadfasdf dao;
 
 	@RequestMapping("/member/list")
 	public String list(HttpServletRequest request) {
-		/*String col = Utility.checkNull(request.getParameter("col")); // null인 경우도 허용하는 메소드
+		String col = Utility.checkNull(request.getParameter("col")); // null인 경우도 허용하는 메소드
 		String word = Utility.checkNull(request.getParameter("word")); // 가장 첫페이지인 리스트에서 col, word값을 받기 위해
 		if (col.equals("total")) { // 전체출력은 word값 공란 허용
 			word = "";
@@ -56,13 +52,7 @@ public class MemberController {
 		request.setAttribute("paging", paging);
 		request.setAttribute("col", col);
 		request.setAttribute("word", word);
-		request.setAttribute("nowPage", nowPage);*/
-		Map map = new HashMap();
-		map.put("col", "");
-		map.put("word", "");
-		map.put("sno", 1);
-		map.put("eno", 3);
-		List<MemberDTO> list = dao.list(map);
+		request.setAttribute("nowPage", nowPage);
 		request.setAttribute("list", list);
 		
 		

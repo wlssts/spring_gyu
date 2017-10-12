@@ -9,11 +9,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원 목록</title>
+<script type="text/javascript">
+function read(id){
+	var url = "./read";
+	url += "?id=" + id;
+	url += "&col=${col}";
+	url += "&word=${word}";
+	url += "&nowPage=${nowPage}";
+
+		location.href = url;
+}
+</script>
 </head>
 <body>
 	<DIV class="title">회원목록</DIV>
 	<div class="search" style="text-align: center;">
-		<FORM name='frm' method='POST' action='./list'>
+		<FORM name='frm' method='POST' action='list'>
 			<select name="col">
 				<option value="name"
 					<c:out value="${col eq 'name' ? 'selected' : '' }" />>성명</option>
