@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.model.member.MemberDAO;
 import spring.model.member.MemberDTO;
-import spring.sts.utility.Util_SHA256;
-import spring.sts.utility.Util_Security;
 import spring.sts.utility.Utility;
 
 @Controller
@@ -139,18 +137,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/member/create", method = RequestMethod.POST)
 	public String create(MemberDTO dto) throws Exception {
-
-		Util_Security Util_Security = new Util_Security();
-		String rtn1 = Util_Security.encryptSHA256(dto.getPasswd());
-		dto.setPasswd(rtn1);
-
-		// 회원가입시 비밀번호를 SHA-256 으로 SALT 이용해 암호화 하기
-		
-		 String salt = Util_SHA256.generateSalt(); String newPassword =
-		 Util_SHA256.getEncrypt(dto.getPasswd(), salt); dto.setPasswd(newPassword);
-		 dto.setSalt(salt);
 		 
-
 		boolean flag = dao.create(dto);
 		System.out.println("dto:" + dto.getPasswd());
 
@@ -190,10 +177,6 @@ public class MemberController {
 		String id = request.getParameter("id");
 		String passwd = request.getParameter("passwd");
 		boolean flag = false;
-
-		Util_Security Util_Security = new Util_Security();
-		String rtn1 = Util_Security.encryptSHA256(passwd);
-		dto.setPasswd(rtn1);
 
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);

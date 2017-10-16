@@ -1,8 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%
-	request.setCharacterEncoding("utf-8");
-	String root = request.getContextPath();
-%>
+<%@ include file="/ssi/member_ssi.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -98,18 +95,6 @@ url += "?id="+id;
  
 wr = window.open(url,"아이디검색","width=500,height=500");
 wr.moveTo((window.screen.width-500)/2,(window.screen.height-500)/2);
-}
-}
- 
-function emailCheck(email){
-if(email==""){
-alert("이메일을 입력해 주세요");
-document.frm.email.focus();
-}else{
-var url = "email_proc";
-url += "?email="+email;
-wr = window.open(url,"이메일중복확인","width=500,height=500");
-wr.moveTo((window.screen.width-500)/2,(window.screen.height-500)/2)
 }
 }
 </script>

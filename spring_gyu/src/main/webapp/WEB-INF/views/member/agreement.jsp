@@ -30,7 +30,7 @@
 <!-- onsubmit 이벤트는 form이 submit이 될 때 발생함. 
     실행된 함수가 false를 리턴하면 submit을 하지 않음. 
  --> 
-<form name="frm" method="post"  
+<form name="frm" method="get"  
       action="create"  
       onsubmit="return send();"> 
  
@@ -224,7 +224,7 @@
 </table> 
  
 <div style="text-align: center"> 
-  <input type="checkbox" name="agree" value="1" > 약관에 동의합니다</input> 
+  <input type="checkbox" name="agree" value="1" > 약관에 동의합니다
   <input type="submit" value="회원가입"></input>  
   <input type="button" value="취소" onclick="history.back();" /> 
 </div> 
