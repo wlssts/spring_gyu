@@ -4,5 +4,79 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="qna">	
+	<insert id="create" parameterType="QnaDTO">
+		insert into qna (qnano, id, title, content, wdate, grpno, passwd)
+		values ((qnano_seq.nextval), #{id} ,#{title}, #{content}, sysdate, (grpno_seq.nextval), #{passwd})
+	</insert>
+	
+	<select id="read" resultType="QnaDTO" parameterType="int">
+		select qnano,name,member.id,title,content,wdate,viewcnt,refno
+		from member,qna where member.id = qna.id;
+	</select>
+	
+	<update id="update" parameterType="QnaDTO">
+		Update qna set title=#{title}, content=#{content} where qnano=#{qnano}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		Delete from qna where qnano=#{qnano}
+	</delete>
+	
+	<select id="list" resultType="QnaDTO" parameterType="map">
+		SELECT qnano, id, content, title, viewcnt, wdate, grpno, indent, ansnum, r
+		FROM ( 
+		    SELECT qnano, id, content, title, viewcnt, wdate, grpno, indent, ansnum,rownum as r
+		    FROM ( 
+		        SELECT qnano, id, content, title, viewcnt, wdate, grpno, indent, ansnum
+		        FROM qna
+				<where>
+					<choose>
+						<when test="col=='title'">
+							title like '%'||#{word}||'%'
+						</when>
+						<when test="col=='content'">
+							content like '%'||#{word}||'%'
+						</when>
+					</choose>
+				</where>
+		ORDER BY grpno asc, ansnum desc
+		    ) order by r desc
+		)
+		<![CDATA[
+		WHERE r>= #{sno} AND r <= #{eno}                                          
+		]]>
+	</select>
+	
+	<select id="total" resultType="int" parameterType="map">
+		select count(*) from qna
+		<where>
+			<choose>
+				<when test="col=='title'">
+					title like '%'||#{word}||'%'
+				</when>
+				<when test="col=='content'">
+					content like '%'||#{word}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	<delete id="alldelete" parameterType="int">
+		Delete from qna where grpno=#{grpno}
+	</delete>
+	
+	<update id="upviewcnt" parameterType="int">
+		update qna set viewcnt = viewcnt + 1 where qnano=#{qnano}
+	</update>
+	
+	<insert id="replyCreate" parameterType="QnaDTO">
+		INSERT INTO qna(qnano, id, title, content, passwd, wdate, grpno, indent, ansnum, refno)
+		VALUES((qnano_seq.nextval),#{id},#{title},#{content},#{passwd},sysdate,
+		#{qnano}, #{indent}+1, #{ansnum}+1, 1)
+	</insert>
+	
+	<select id="getRefno" parameterType="int" resultType="int">
+		select count(*) from qna where qnano = #{qnano} and refno=#{refno}
+	</select>
 	
 </mapper>

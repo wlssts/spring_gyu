@@ -9,9 +9,6 @@
 function read(id){
 	var url = "read";
 	url += "?id=" + id;
-	url += "&col=${col}";
-	url += "&word=${word}";
-	url += "&nowPage=${nowPage}";
 
 		location.href = url;
 }

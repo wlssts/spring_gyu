@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+                        web-jsptaglibrary_2_0.xsd" 
+    version="2.0"> 
+     
+    <description>EL에서 함수실행</description> 
+    <tlib-version>1.0</tlib-version> 
+    <short-name>ELFunctions</short-name>
+    <uri>/ELFunctions</uri> 
+    
+    
+     
+     
+     
+    <function>  <!-- EL에서 사용할 함수 정의 하나이 함수당 하나의 <function>객체에 매핑됩니다. --> 
+        <description>Date 객체를 포맷팅하여 출력</description> 
+        <name>dateFormat</name>  <!-- <name>태그는 EL에서 사용할 함수의 이름 --> 
+        <function-class>                   <!-- <function-class>함수의 기능을 제공할 클래스의  이름 --> 
+            www.el.DateUtil 
+        </function-class> 
+        <function-signature>     <!-- <function-signature>함수 기능을 실행할 메소드를 명시 --> 
+            java.lang.String format( java.util.Date ) 
+        </function-signature> 
+    </function> 
+    
+    
+    <function>  <!-- EL에서 사용할 함수 정의 하나이 함수당 하나의 <function>객체에 매핑됩니다. --> 
+        <description>New 이미지 출력</description> 
+        <name>newImage</name>  <!-- <name>태그는 EL에서 사용할 함수의 이름 --> 
+        <function-class>                   <!-- <function-class>함수의 기능을 제공할 클래스의  이름 --> 
+            spring.sts.utility.Utility
+        </function-class> 
+        <function-signature>     <!-- <function-signature>함수 기능을 실행할 메소드를 명시 --> 
+            boolean compareDay( java.lang.String ) 
+        </function-signature> 
+    </function> 
+</taglib> 

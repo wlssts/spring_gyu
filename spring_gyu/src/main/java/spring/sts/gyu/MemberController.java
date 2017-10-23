@@ -56,13 +56,15 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value ="/member/update", method =RequestMethod.POST)
-	public String update(MemberDTO dto, Model model, String col, String word, String nowPage) throws Exception {
+	public String update(MemberDTO dto, Model model) throws Exception {
+		System.out.println("flag@@@@@@@@@@");
 		boolean flag = dao.update(dto);
+		String url = "";
 		if(flag) {
-			model.addAttribute("col",col);
-			model.addAttribute("word",word);
-			model.addAttribute("nowPage",nowPage);
-			return "redirect:list";			
+			model.addAttribute("flag", flag);
+			url += "read";
+			url += "?id="+dto.getId();
+			return url;			
 		} else {
 			return "error/error";
 		}
@@ -117,7 +119,6 @@ public class MemberController {
 		request.setAttribute("col", col);
 		request.setAttribute("word", word);
 		request.setAttribute("nowPage", nowPage);
-		request.setAttribute("list", list);
 		
 		
 		return "member/list.tiles";
@@ -136,12 +137,12 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member/create", method = RequestMethod.POST)
-	public String create(MemberDTO dto) throws Exception {
+	public String create(MemberDTO dto, Model model) throws Exception {
 		 
 		boolean flag = dao.create(dto);
-		System.out.println("dto:" + dto.getPasswd());
-
+		
 		if (flag) {
+			model.addAttribute("flag", flag);
 			return "redirect:login";
 		} else {
 			return "error/error";
@@ -173,7 +174,7 @@ public class MemberController {
 	}*/
 
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
-	public String login(HttpServletRequest request, HttpServletResponse response, Model model, MemberDTO dto) throws Exception {
+	public String login(HttpServletRequest request,HttpSession session,HttpServletResponse response, Model model, MemberDTO dto) throws Exception {
 		String id = request.getParameter("id");
 		String passwd = request.getParameter("passwd");
 		boolean flag = false;
@@ -181,13 +182,15 @@ public class MemberController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("passwd", dto.getPasswd());
-
+		
+		dto = dao.read(id);
+		
 		flag = dao.loginCheck(map);
 		String grade = null;// 회원등급
 		if (flag) {// 회원인경우
 			grade = dao.getGrade(id);
-			request.getSession().setAttribute("id", id);
-			request.getSession().setAttribute("grade", grade);
+			session.setAttribute("id", dto.getId());
+			session.setAttribute("grade", dto.getGrade());
 
 			// ----------------------------------------------
 			// Cookie 저장, Checkbox는 선택하지 않으면 null 임

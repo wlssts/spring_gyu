@@ -14,27 +14,18 @@
 <script type="text/javascript">
 	function mlist() {
 		var url = "./list";
-		url += "?col=${col}";
-		url += "&word=${word}";
-		url += "&nowPage=${nowPage}";
 
 		location.href = url;
 	}
 	function mdelete() {
 		var url = "./delete";
-		url += "?col=${col}";
-		url += "&word=${word}";
-		url += "&nowPage=${nowPage}";
-		url += "&id=${dto.id}";
+		url += "?id=${dto.id}";
 
 		location.href = url;
 	}
 	function update() {
 		var url = "./update";
-		url += "?col=${col}";
-		url += "&word=${word}";
-		url += "&nowPage=${nowPage}";
-		url += "&id=${dto.id}";
+		url += "?id=${dto.id}";
 
 		location.href = url;
 	}
@@ -68,20 +59,20 @@
 			<TD>${dto.address1} ${dto.address2}</TD>
 		</TR>
 	</TABLE>
-
-	<%-- <DIV class='bottom'>
-		<c:if
-			test="${not empty sessionScope.id && sessionScope.grade != 'A' }">
+	
+	<DIV class='bottom'>
+		<c:if test="${not empty sessionScope.id && sessionScope.grade != 'A' }">
 			<input type='button' value='정보수정' onclick="update()">
+			<input type='button' value='탈퇴' onclick="mdelete()">
 		</c:if>
-		<c:if
-			test="${not empty sessionScope.id && sessionScope.grade = 'A' }">
+		<c:if test="${not empty sessionScope.id && sessionScope.grade == 'A' }">
 			<input type='button' value='회원목록' onclick="mlist()">
 			<input type='button' value='회원삭제' onclick="mdelete()">
 		</c:if>
-	</DIV> --%>
+	</DIV>
 
-
+	<input type="hidden" name="passwd" value="${dto.passwd }">
+	
 </body>
 <!-- *********************************************** -->
 </html>

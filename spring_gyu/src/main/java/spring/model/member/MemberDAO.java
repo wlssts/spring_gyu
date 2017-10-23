@@ -21,7 +21,7 @@ public class MemberDAO implements IMemberDAO {
 	public boolean create(Object dto) throws Exception {
 		// TODO Auto-generated method stub
 		
-		return (Integer)mybatis.selectOne("member.create", (MemberDTO)dto)>0;
+		return (Integer)mybatis.insert("member.create", (MemberDTO)dto)>0;
 	}
 
 	@Override
@@ -39,13 +39,13 @@ public class MemberDAO implements IMemberDAO {
 	@Override
 	public boolean update(Object dto) throws Exception {
 		// TODO Auto-generated method stub
-		return (Integer)mybatis.selectOne("member.update", (MemberDTO)dto)>0;
+		return mybatis.update("member.update", (MemberDTO)dto)>0;
 	}
 
 	@Override
 	public boolean delete(Object id) throws Exception {
 		// TODO Auto-generated method stub
-		return (Integer)mybatis.selectOne("member.delete", (String)id)>0;
+		return (Integer)mybatis.delete("member.delete", (String)id)>0;
 	}
 
 	@Override

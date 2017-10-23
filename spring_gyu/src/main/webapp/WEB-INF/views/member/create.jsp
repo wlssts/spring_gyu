@@ -52,37 +52,39 @@
 </script>
 <script type="text/javascript">
 function inputCheck(f){
-if(f.id.value==""){
-alert("이이디를 입력해 주세요");
-f.id.focus();
-return false;
-}
-if(f.passwd.value==""){
-alert("비밀번호를 입력해 주세요");
-f.passwd.focus();
-return false;
-}
-if(f.repasswd.value==""){
-alert("비밀번호 확인을 입력해 주세요");
-f.repasswd.focus();
-return false;
-}
-if(f.passwd.value!=f.repasswd.value){
-alert("비밀번호가 일치하지 않습니다. 입력해 주세요");
-f.passwd.focus();
-return false;
-}
-if(f.name.value==""){
-alert("이름을 입력해 주세요");
-f.name.focus();
-return false;
-}
-if(f.phone.value==""){
-alert("전화번호를 입력해 주세요");
-f.phone.focus();
-return false;
-}
- 
+
+		
+		if(f.id.value==""){
+		alert("이이디를 입력해 주세요");
+		f.id.focus();
+		return false;
+		}
+		if(f.passwd.value==""){
+		alert("비밀번호를 입력해 주세요");
+		f.passwd.focus();
+		return false;
+		}
+		if(f.repasswd.value==""){
+		alert("비밀번호 확인을 입력해 주세요");
+		f.repasswd.focus();
+		return false;
+		}
+		if(f.passwd.value!=f.repasswd.value){
+		alert("비밀번호가 일치하지 않습니다. 입력해 주세요");
+		f.passwd.focus();
+		return false;
+		}
+		if(f.name.value==""){
+		alert("이름을 입력해 주세요");
+		f.name.focus();
+		return false;
+		}
+		if(f.phone.value==""){
+		alert("전화번호를 입력해 주세요");
+		f.phone.focus();
+		return false;
+		} 
+		alert("회원가입되셨습니다.");
 }
  
 function idCheck(id){
@@ -144,9 +146,9 @@ wr.moveTo((window.screen.width-500)/2,(window.screen.height-500)/2);
 			</TR>
 			<TR>
 				<TH>주소</TH>
-				<TD><input type="text" name="address1" size="40"
-					id="sample6_address" placeholder="주소"> <input type="text"
-					name="address2" size="40" id="sample6_address2" placeholder="상세주소">
+				<TD>
+					<input type="text" name="address1" size="40" id="sample6_address" placeholder="주소">
+					<input type="text" name="address2" size="40" id="sample6_address2" placeholder="상세주소">
 				</TD>
 				<td></td>
 			</TR>

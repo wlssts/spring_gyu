@@ -10,9 +10,6 @@
 <script type="text/javascript">
 	function mlist() {
 		var url = "${root}/list";
-		url += "?col=${col}";
-		url += "&word=${word}";
-		url += "&nowPage=${nowPage}";
 
 		location.href = url;
 	}

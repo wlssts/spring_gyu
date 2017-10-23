@@ -47,8 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- CREATE -->
 	<insert id="create" parameterType="MemberDTO">
-		INSERT INTO member(id,passwd,name,zipcode,address1,address2,phone,grade)
-		VALUES (#{id},#{passwd},#{name},#{zipcode},#{address1},#{address2},#{phone},#{grade})
+		INSERT INTO member(id,passwd,name,zipcode,address1,address2,phone)
+		VALUES (#{id},#{passwd},#{name},#{zipcode},#{address1},#{address2},#{phone})
 	</insert>
 	
 	<!-- UPDATE -->
@@ -76,7 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- READ -->
 	<select id="read" resultType="MemberDTO" parameterType="String">
-		SELECT id,name,phone,address1,address2,zipcode FROM member where id = #{id}
+		SELECT * FROM member where id = #{id}
 	</select>
 	
 	<!-- LoginCheck -->

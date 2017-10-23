@@ -9,15 +9,6 @@ public class MemberDTO {
 	private String address2;
 	private String phone;
 	private String grade;
-	private String salt;
-
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
 
 	public String getId() {
 		return id;

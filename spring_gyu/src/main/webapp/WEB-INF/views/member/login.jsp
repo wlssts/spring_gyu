@@ -6,12 +6,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+function inputCheck(f) {
+	if(f.id.value==""){
+		alert("아이디를 입력해주세요");
+		f.id.focus();
+		return false;
+	}
+	if(f.passwd.value==""){
+		alert("비밀번호를 입력해주세요");
+		f.passwd.focus();
+		return false;
+	}
+}
+
+</script>
 <title>로그인 페이지</title>
 </head>
 <body>
 <div align="center">
 
-	<form action="login" method="POST">
+	<form name="frm" action="login" method="POST" onsubmit="return inputCheck(this)">
 	<table>
 		<tr>
 			<td colspan="2"><h2>로그인</h2></td>

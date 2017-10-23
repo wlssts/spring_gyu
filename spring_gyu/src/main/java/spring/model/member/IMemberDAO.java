@@ -1,6 +1,5 @@
 package spring.model.member;
 
-import java.util.List;
 import java.util.Map;
 
 import spring.inter.DAOinter;
