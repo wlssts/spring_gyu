@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.model.qna.QnaDAO;
 import spring.model.qna.QnaDTO;
@@ -46,7 +48,6 @@ public class QnaController {
 		List<QnaDTO> list = dao.list(map); // 맵을 매개로 list객체 생성
 		int totalRecord = dao.total(map); // 맵을 매개로 전체출력 메소드 호출해 값을 totalRecord로 저장
 		String paging = Utility.paging2("list", totalRecord, nowPage, recordPerPage, col, word);
-
 		// 4. 결과를 request 또는 session의 setAttribute()메소드를 사용하여 저장
 		request.setAttribute("list", list);
 		request.setAttribute("paging", paging);
@@ -56,4 +57,25 @@ public class QnaController {
 		
 		return "qna/list.tiles";
 	}
+	
+	@RequestMapping("/qna/create")
+	public String create() throws Exception{
+		
+		return "qna/create.tiles";
+	}
+	
+	@RequestMapping(value="/qna/create", method=RequestMethod.POST)
+	public String create(Model model, QnaDTO dto) throws Exception{
+		
+		boolean flag = dao.create(dto);
+		
+		if(flag) {
+			model.addAttribute("flag", flag);
+			return "redirect:create";
+		} else {
+			return "error/error";
+		}
+	}
+	
+	
 }

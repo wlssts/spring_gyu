@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/ssi/member_ssi.jsp"%>
+<%@ include file="/ssi/ssi.jsp"%>
 <c:if test="${empty nowPage || nowPage == 'null' }">
 	<c:set var="nowPage" value="1" />
 </c:if>

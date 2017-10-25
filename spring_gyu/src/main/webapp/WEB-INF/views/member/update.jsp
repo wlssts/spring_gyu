@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ include file="/ssi/member_ssi.jsp"%>
+<%@ include file="/ssi/ssi.jsp"%>
 
 <!DOCTYPE html>
 <html>

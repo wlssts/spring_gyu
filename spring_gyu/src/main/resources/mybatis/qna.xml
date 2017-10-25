@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<select id="list" resultType="QnaDTO" parameterType="map">
-		SELECT qnano, id, content, title, viewcnt, wdate, grpno, indent, ansnum, r
+		SELECT qnano, id, content, title, viewcnt, to_char(wdate, 'yyyy-MM-dd') wdate, grpno, indent, ansnum, r
 		FROM ( 
 		    SELECT qnano, id, content, title, viewcnt, wdate, grpno, indent, ansnum,rownum as r
 		    FROM ( 

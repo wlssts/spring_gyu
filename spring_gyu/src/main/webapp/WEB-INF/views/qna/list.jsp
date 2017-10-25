@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>list</title>
 <script type="text/javascript">
 	function read(qnano) {
 		var url = "./read";
@@ -15,6 +15,17 @@
 		url += "&nowPage=${nowPage}";
 
 		location.href = url;
+	}
+	function create() {
+		if(${not empty sessionScope.id && sessionScope.id != ''}){
+			var url = "./create";
+
+			return location.href = url;		
+		} else {
+			alert("로그인이 필요합니다.");
+			
+			return "./list";
+		}
 	}
 </script>
 <style type="text/css">
@@ -38,19 +49,18 @@
                <c:out value="${col eq 'total' ? 'selected' : '' }" />
                >전체</option>
          </select> 
-           <input type="text" placeholder="검색어 입력" name = "word" value = "${word }" class = "d1">
+           <input type="text" placeholder="검색어 입력" name = "word" value = "${word }">
          <button>검색</button>
-         <button type="button" class="btn btn-success" onclick="location.href = 'create'">등록</button>
+         <button type="button" onclick="location.href=create()">등록</button>
       </form>
 
 	</div>
 	<div>
-		<h2>게시판 목록</h2>
+		<h1>Q & A</h1>
 		<TABLE>
 			<TR>
 				<TH>번호</TH>
 				<TH>제목</TH>
-				<TH>성명</TH>
 				<TH>ID</TH>
 				<TH>조회수</TH>
 				<TH>등록일</TH>
@@ -76,11 +86,10 @@
 									<img src='${root }/images/re.jpg'>
 									
 								</c:if>
-								 <a href="javascript:read('${dto.bbsno}')"> ${dto.title}
+								 <a href="javascript:read('${dto.qnano}')"> ${dto.title}
 								 </a> <c:if test="${util:newImage(fn:substring(dto.wdate, 0,10)) }">
 									<img src="${root }/images/new.gif">
 								</c:if></td>
-							<td>${dto.name}</td>
 							<td>${dto.id}</td>
 							<td>${dto.viewcnt}</td>
 							<td>${dto.wdate}</td>

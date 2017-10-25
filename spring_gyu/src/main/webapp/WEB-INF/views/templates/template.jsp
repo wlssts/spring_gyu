@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="${pageContext.request.contextPath }/css/style.css" rel="Stylesheet" type="text/css">
+<%-- <link href="${pageContext.request.contextPath }/css/style.css" rel="Stylesheet" type="text/css"> --%>
 </head>
 <body leftmargin="0" topmargin="0">
 

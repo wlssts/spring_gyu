@@ -7,7 +7,7 @@ public class QnaDTO {
     private String content;
     private String passwd;
     private String wdate;
-    private int  grpno;
+    private int grpno;
     private int indent;
     private int ansnum;
     private int refno;
